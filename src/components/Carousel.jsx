@@ -58,7 +58,7 @@ const Carousel = ({ imageUrls, title }) => {
           <span
             key={index}
             className={classNames(
-              "neeto-ui-border-black neeto-ui-rounded-full h-3 w-3 cursor-pointer border",
+              "neeto-ui-border-black neeto-ui-rounded-full mt-1 h-3 w-3 cursor-pointer border",
               { "neeto-ui-bg-black": index === currentIndex }
             )}
             onClick={() => {
