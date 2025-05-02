@@ -36,7 +36,6 @@ const ProductQuantity = ({ slug, availableQuantity }) => {
     <div className="neeto-ui-border-black neeto-ui-rounded inline-flex flex-row items-center border">
       <Button
         className="focus-within:ring-0"
-        disabled={isNotValidQuantity}
         label="-"
         style="text"
         onClick={e => {
