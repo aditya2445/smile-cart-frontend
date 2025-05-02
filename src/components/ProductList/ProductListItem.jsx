@@ -1,4 +1,4 @@
-import AddToCart from "components/AddToCart";
+import AddToCart from "components/commons/AddToCart";
 import { Typography } from "neetoui";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";

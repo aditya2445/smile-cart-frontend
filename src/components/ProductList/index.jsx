@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import productsApi from "apis/products";
 import { Header } from "components/commons";
 import useDebounce from "hooks/useDebounce";
 import { Search } from "neetoicons";
 import { Input, NoData, Spinner } from "neetoui";
-import { isEmpty, without } from "ramda";
+import { isEmpty } from "ramda";
+import CartItemsContext from "src/contexts/CartItemsContext";
 
 import ProductListItem from "./ProductListItem";
 
@@ -13,7 +14,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems] = useContext(CartItemsContext);
   const debouncedSearchKey = useDebounce(searchKey);
   const fetchProducts = async () => {
     try {
@@ -26,14 +27,6 @@ const ProductList = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const toggleIsInCart = slug => {
-    setCartItems(prevCartItems =>
-      prevCartItems.includes(slug)
-        ? without([slug], cartItems)
-        : [slug, ...prevCartItems]
-    );
   };
 
   useEffect(() => {
@@ -70,12 +63,7 @@ const ProductList = () => {
         ) : (
           <div className="grid grid-cols-2 justify-items-center gap-y-8 p-4 md:grid-cols-3 lg:grid-cols-4">
             {products.map(product => (
-              <ProductListItem
-                key={product.slug}
-                {...product}
-                isInCart={cartItems.includes(product.slug)}
-                toggleIsInCart={() => toggleIsInCart(product.slug)}
-              />
+              <ProductListItem key={product.slug} {...product} />
             ))}
           </div>
         )}
