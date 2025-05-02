@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Cart from "components/cart";
+import Cart from "components/Cart";
 import PageNotFound from "components/commons/PageNotFound";
 import Product from "components/Product";
 import ProductList from "components/ProductList";
