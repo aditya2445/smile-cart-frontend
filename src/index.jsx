@@ -4,13 +4,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-import App from "./App";
-import "./index.css";
-// eslint-disable-next-line import/order
-import reportWebVitals from "./reportWebVitals";
-
-// eslint-disable-next-line import/order
 import initializeAxios from "./apis/axios";
+import App from "./App";
+import "./common/i18n";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
 initializeAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
