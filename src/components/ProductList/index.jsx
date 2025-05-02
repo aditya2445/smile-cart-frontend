@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
 import { Header } from "components/commons";
@@ -6,7 +6,7 @@ import useDebounce from "hooks/useDebounce";
 import { Search } from "neetoicons";
 import { Input, NoData, Spinner } from "neetoui";
 import { isEmpty } from "ramda";
-import CartItemsContext from "src/contexts/CartItemsContext";
+import useCartItemsStore from "stores/useCartItemsStore";
 
 import ProductListItem from "./ProductListItem";
 
@@ -14,7 +14,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
-  const [cartItems] = useContext(CartItemsContext);
+  const cartItems = useCartItemsStore(store => store.cartItems);
   const debouncedSearchKey = useDebounce(searchKey);
   const fetchProducts = async () => {
     try {
