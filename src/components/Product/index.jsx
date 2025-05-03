@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { Header, PageNotFound } from "components/commons";
 import AddToCart from "components/commons/AddToCart";
 import useSelectedQuantity from "components/hooks/useSelectedQuantity";
@@ -75,4 +77,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default memo(Product);
