@@ -26,7 +26,6 @@ module.exports = {
     "./.eslint-rules/imports/enforced",
     "./.eslint-rules/react",
     "./.eslint-rules/promise",
-    "prettier",
   ],
   settings: {
     react: {
@@ -40,23 +39,23 @@ module.exports = {
     },
   },
   parserOptions: {
+    requireConfigFile: false,
     babelOptions: {
       presets: [
-        ["babel-preset-react-app", false],
-        "babel-preset-react-app/prod",
+        require.resolve("@babel/preset-env"),
+        require.resolve("@babel/preset-react"),
       ],
     },
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: "module",
   },
   // babel-eslint is deprecated now. This is the latest package.
   parser: "@babel/eslint-parser",
   plugins: [
     "react",
-    "prettier",
     "import",
     "react-hooks",
     "promise",
@@ -65,7 +64,7 @@ module.exports = {
   ],
   rules: {
     // auto-fixable: Respect all Prettier rules and apply it.
-    "prettier/prettier": "error",
+    // "prettier/prettier": "error",
     // not-auto-fixable: No unused variables allowed.
     "no-unused-vars": [
       "error",
@@ -78,7 +77,7 @@ module.exports = {
     ],
     // not-auto-fixable: No undefined variables allowed.
     "no-undef": "error",
-    // not-auto-fixable: Dont use console statements. Use logger which babel will remove during bundling.
+    // not-auto-fixable: Don't use console statements. Use logger which babel will remove during bundling.
     "no-console": "error",
     // not-auto-fixable: require `return` statements to either always or never specify values.
     "consistent-return": "error",
