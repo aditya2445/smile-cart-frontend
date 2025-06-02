@@ -8,17 +8,17 @@ const Carousel = ({ imageUrls, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const timerRef = useRef(null);
+  useEffect(() => {
+    timerRef.current = setInterval(handleNext, 3000);
+
+    return () => clearInterval(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const resetTimer = () => {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(handleNext, 3000);
   };
-
-  useEffect(() => {
-    timerRef.current = setInterval(handleNext, 3000);
-
-    return () => clearInterval(timerRef.current);
-  }, []);
 
   const handleNext = () =>
     setCurrentIndex(prevIndex => (prevIndex + 1) % imageUrls.length);
