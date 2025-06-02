@@ -125,6 +125,18 @@ module.exports = {
         functions: "never",
       },
     ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+        svg: "always", // <-- allow extensions for SVG
+        json: "always",
+      },
+    ],
     // auto-fixable: If a variable is never reassigned, using the const declaration is better.
     "prefer-const": "error",
     // auto-fixable: It is considered good practice to use the type-safe equality operators === and !==.
