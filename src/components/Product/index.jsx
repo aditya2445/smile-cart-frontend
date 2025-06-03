@@ -2,21 +2,29 @@ import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
 // import axios from "axios";
+import Header from "components/commons/Header";
+// import { LeftArrow } from "neetoicons";
 import { Spinner, Typography } from "neetoui";
 import { append, isNotNil } from "ramda";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 import Carousel from "./Carousel";
+
+import PageNotFound from "../commons/PageNotFound";
 // import { imageUrls } from "./constants";
 
 const Product = () => {
+  // const history = useHistory();
+  const { slug } = useParams();
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const fetchProduct = async () => {
     try {
-      const product = await productsApi.show();
+      const product = await productsApi.show(slug);
       setProduct(product);
-    } catch (error) {
-      console.log("An error occurred:", error);
+    } catch {
+      setIsError(true);
     } finally {
       setIsLoading(false);
     }
@@ -24,7 +32,12 @@ const Product = () => {
 
   useEffect(() => {
     fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isError) {
+    return <PageNotFound />;
+  }
 
   const { name, description, mrp, offerPrice, imageUrls, imageUrl } = product;
   const totalDiscounts = mrp - offerPrice;
@@ -39,12 +52,8 @@ const Product = () => {
   }
 
   return (
-    <div className="px-6 pb-6">
-      <div>
-        <Typography className="py-2 text-4xl font-semibold" style="h1">
-          {name}
-        </Typography>
-      </div>
+    <div className="m-2">
+      <Header title={name} />
       <div className="mt-16 flex gap-4">
         <div className="w-2/5">
           <div className="flex justify-center gap-16">

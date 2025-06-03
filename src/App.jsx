@@ -1,10 +1,14 @@
 import React from "react";
 
-import Home from "components/Home";
-import PageNotFound from "components/PageNotFound";
+import PageNotFound from "components/commons/PageNotFound";
 import Product from "components/Product";
+import ProductList from "components/ProductList";
 import { Route } from "react-router-dom";
-import { NavLink, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  NavLink,
+  Redirect,
+  Switch,
+} from "react-router-dom/cjs/react-router-dom.min";
 
 // import Product from "./components/Product";
 
@@ -17,8 +21,9 @@ const App = () => (
       Product
     </NavLink>
     <Switch>
-      <Route exact component={Home} path="/" />
-      <Route exact component={Product} path="/product" />
+      <Route exact component={ProductList} path="/products" />
+      <Route exact component={Product} path="/products/:slug" />
+      <Redirect exact from="/" to="/products" />
       <Route component={PageNotFound} path="*" />
     </Switch>
   </>
