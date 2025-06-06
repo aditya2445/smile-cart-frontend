@@ -1,9 +1,31 @@
+import React from "react";
+
+import { useFormikContext } from "formik";
+import {
+  useFetchStates,
+  useFetchCountries,
+} from "hooks/reactQuery/useCheckoutApi";
 import { Typography } from "neetoui";
-import { Input } from "neetoui/formik";
+import { Input, Select } from "neetoui/formik";
 import { useTranslation } from "react-i18next";
 
 const Form = () => {
   const { t } = useTranslation();
+
+  const {
+    setFieldValue,
+    values: { country },
+  } = useFormikContext();
+
+  const { data: countries = [] } = useFetchCountries();
+  const { data: states = [] } = useFetchStates({
+    countryCode: country.code,
+  });
+
+  const handleChangeCountry = country => {
+    setFieldValue("country", country);
+    setFieldValue("state", null);
+  };
 
   return (
     <>
@@ -20,6 +42,17 @@ const Form = () => {
       <Typography className="pt-5" style="h3" weight="semibold">
         {t("shippingAddress")}
       </Typography>
+      <Select
+        required
+        label={t("country")}
+        name="country"
+        optionRemapping={{ label: "name", value: "code" }}
+        options={countries}
+        placeholder={t("selectCountry")}
+        size="large"
+        value={country}
+        onChange={handleChangeCountry}
+      />
       <div className="flex space-x-2">
         <Input
           required
@@ -56,6 +89,15 @@ const Form = () => {
           label={t("city")}
           name="city"
           placeholder={t("enterCity")}
+          size="large"
+        />
+        <Select
+          required
+          label={t("state")}
+          name="state"
+          optionRemapping={{ label: "name", value: "code" }}
+          options={states}
+          placeholder={t("selectState")}
           size="large"
         />
         <Input
