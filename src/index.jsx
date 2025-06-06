@@ -10,7 +10,10 @@ import "./common/i18n";
 
 // eslint-disable-next-line import/order
 import { BrowserRouter } from "react-router-dom";
-
+// eslint-disable-next-line import/order
+import { QueryClientProvider } from "react-query";
+// eslint-disable-next-line import/order
+import queryClient from "utils/queryClient";
 // eslint-disable-next-line import/order
 import initializeAxios from "apis/axios";
 
@@ -21,10 +24,12 @@ initializeAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ToastContainer />
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ToastContainer />
+        <App />
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
