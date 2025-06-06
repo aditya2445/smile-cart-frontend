@@ -1,9 +1,10 @@
 import React from "react";
 // eslint-disable-next-line no-duplicate-imports
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-import productsApi from "apis/products";
+// import productsApi from "apis/products";
 import Header from "components/commons/Header";
+import { useFetchProducts } from "hooks/reactQuery/useProductsApi";
 import useDebounce from "hooks/useDebounce";
 import { Search } from "neetoicons";
 import { Input, NoData, Spinner } from "neetoui";
@@ -12,25 +13,19 @@ import { isEmpty } from "ramda";
 import ProductListItem from "./ProductListItem";
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [products, setProducts] = useState([]);
+  // const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
   const debouncedSearchKey = useDebounce(searchKey);
-  const fetchProducts = async () => {
-    try {
-      const data = await productsApi.fetch({ searchTerm: debouncedSearchKey });
-      setProducts(data.products);
-    } catch (error) {
-      console.log("An error occurred:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchKey]);
+  const { data: { products = [] } = {}, isLoading } = useFetchProducts({
+    searchTerm: debouncedSearchKey,
+  });
+
+  // useEffect(() => {
+  //   fetchProducts();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [debouncedSearchKey]);
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
