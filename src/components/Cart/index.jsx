@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-
-import productsApi from "apis/products";
 import { PageLoader } from "components/commons";
 import Header from "components/commons/Header";
 import { MRP, OFFER_PRICE } from "components/constants";
 import { cartTotalOf } from "components/utils";
-import { NoData, Toastr } from "neetoui";
+// import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
+import { NoData } from "neetoui";
 import { isEmpty, keys } from "ramda";
 import i18n from "src/common/i18n";
 // eslint-disable-next-line import/order
@@ -18,43 +17,8 @@ import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
 
 const Cart = () => {
-  const { cartItems, setSelectedQuantity } = useCartItemsStore.pick();
-  const slugs = keys(cartItems);
-
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchCartProducts = async () => {
-    try {
-      const responses = await Promise.all(
-        slugs.map(slug => productsApi.show(slug))
-      );
-
-      setProducts(responses);
-      responses.forEach(({ availableQuantity, name, slug }) => {
-        if (availableQuantity >= cartItems[slug]) return;
-
-        setSelectedQuantity(slug, availableQuantity);
-        if (availableQuantity === 0) {
-          Toastr.error(
-            `${name} is no longer available and has been removed from cart`,
-            {
-              autoClose: 2000,
-            }
-          );
-        }
-      });
-    } catch (error) {
-      console.log("An error occurred:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCartProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartItems]);
+  const slugs = useCartItemsStore(store => keys(store.cartItems));
+  const { data: products = [], isLoading } = useFetchCartProducts(slugs);
 
   // Cart/index.jsx
   const totalMrp = cartTotalOf(products, MRP);
