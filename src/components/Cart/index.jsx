@@ -7,8 +7,12 @@ import { MRP, OFFER_PRICE } from "components/constants";
 import { cartTotalOf } from "components/utils";
 import { NoData, Toastr } from "neetoui";
 import { isEmpty, keys } from "ramda";
+import i18n from "src/common/i18n";
+// eslint-disable-next-line import/order
 import useCartItemsStore from "stores/useCartItemsStore";
 // import { shallow } from "zustand/shallow";
+
+import withTitle from "utils/withTitle";
 
 import PriceCard from "./PriceCard";
 import ProductCard from "./ProductCard";
@@ -88,4 +92,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default withTitle(Cart, i18n.t("cart.title"));
