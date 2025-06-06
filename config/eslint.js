@@ -1,3 +1,4 @@
+
 module.exports = {
   env: {
     browser: true, // window object etc part of browser are made available globally.
@@ -26,6 +27,7 @@ module.exports = {
     "./.eslint-rules/imports/enforced",
     "./.eslint-rules/react",
     "./.eslint-rules/promise",
+    "prettier",
   ],
   settings: {
     react: {
@@ -39,23 +41,23 @@ module.exports = {
     },
   },
   parserOptions: {
-    requireConfigFile: false,
     babelOptions: {
       presets: [
-        require.resolve("@babel/preset-env"),
-        require.resolve("@babel/preset-react"),
+        ["babel-preset-react-app", false],
+        "babel-preset-react-app/prod",
       ],
     },
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2020,
+    ecmaVersion: 2018,
     sourceType: "module",
   },
   // babel-eslint is deprecated now. This is the latest package.
   parser: "@babel/eslint-parser",
   plugins: [
     "react",
+    "prettier",
     "import",
     "react-hooks",
     "promise",
@@ -64,7 +66,7 @@ module.exports = {
   ],
   rules: {
     // auto-fixable: Respect all Prettier rules and apply it.
-    // "prettier/prettier": "error",
+    "prettier/prettier": "error",
     // not-auto-fixable: No unused variables allowed.
     "no-unused-vars": [
       "error",
@@ -77,7 +79,7 @@ module.exports = {
     ],
     // not-auto-fixable: No undefined variables allowed.
     "no-undef": "error",
-    // not-auto-fixable: Don't use console statements. Use logger which babel will remove during bundling.
+    // not-auto-fixable: Dont use console statements. Use logger which babel will remove during bundling.
     "no-console": "error",
     // not-auto-fixable: require `return` statements to either always or never specify values.
     "consistent-return": "error",
@@ -123,18 +125,6 @@ module.exports = {
         imports: "always-multiline",
         exports: "always-multiline",
         functions: "never",
-      },
-    ],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        js: "never",
-        jsx: "never",
-        ts: "never",
-        tsx: "never",
-        svg: "always", // <-- allow extensions for SVG
-        json: "always",
       },
     ],
     // auto-fixable: If a variable is never reassigned, using the const declaration is better.

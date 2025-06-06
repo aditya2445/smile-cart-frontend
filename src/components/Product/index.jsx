@@ -8,7 +8,7 @@ import Header from "components/commons/Header";
 import useSelectedQuantity from "components/hooks/useSelectedQuantity";
 import { Button, Spinner, Typography } from "neetoui";
 import { append, isNotNil } from "ramda";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import { useParams } from "react-router-dom";
 import routes from "routes";
 
 import Carousel from "./Carousel";

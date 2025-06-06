@@ -2,8 +2,8 @@ import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
 import { keys } from "ramda";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory, Link } from "react-router-dom";
+// import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import routes from "routes";
 import useCartItemsStore from "stores/useCartItemsStore";
 
@@ -33,7 +33,7 @@ const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
           {actionBlock}
           <div className="flex flex-col">
             {cartItemsCount > 0 && (
-              <span className="neeto-ui-border-black neeto-ui-rounded-full min-w-fit flex h-5 w-5 items-center self-end border p-1">
+              <span className="neeto-ui-border-black neeto-ui-rounded-full flex h-5 w-5 min-w-fit items-center self-end border p-1">
                 {cartItemsCount}
               </span>
             )}

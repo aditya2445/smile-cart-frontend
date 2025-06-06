@@ -1,4 +1,4 @@
-const defaultConfig = require("./config/eslint.js");
+const defaultConfig = require("./config/eslint");
 const { mergeDeepLeft } = require("ramda");
 
 module.exports = mergeDeepLeft(
