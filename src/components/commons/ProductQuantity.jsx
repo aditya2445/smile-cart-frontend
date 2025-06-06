@@ -57,16 +57,6 @@ const ProductQuantity = ({ slug, availableQuantity }) => {
         onChange={handleSetCount}
         onClick={preventNavigation}
       />
-      {selectedQuantity}
-      <Button
-        className="focus-within:ring-0"
-        label="+"
-        style="text"
-        onClick={e => {
-          preventNavigation(e);
-          setSelectedQuantity(parsedSelectedQuantity + 1);
-        }}
-      />
       <TooltipWrapper
         content="Reached maximum units"
         position="top"
@@ -74,12 +64,11 @@ const ProductQuantity = ({ slug, availableQuantity }) => {
       >
         <Button
           className="focus-within:ring-0"
-          disabled={isNotValidQuantity}
           label="+"
           style="text"
           onClick={e => {
             preventNavigation(e);
-            setSelectedQuantity(selectedQuantity + 1);
+            setSelectedQuantity(parsedSelectedQuantity + 1);
           }}
         />
       </TooltipWrapper>
