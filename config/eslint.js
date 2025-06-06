@@ -1,4 +1,3 @@
-
 module.exports = {
   env: {
     browser: true, // window object etc part of browser are made available globally.

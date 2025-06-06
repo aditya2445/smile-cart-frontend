@@ -4,7 +4,8 @@ import Cart from "components/Cart";
 import PageNotFound from "components/commons/PageNotFound";
 import Product from "components/Product";
 import ProductList from "components/ProductList";
-import { Route, Redirect, Switch } from "react-router-dom";
+// import {  } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import routes from "routes";
 
 // import CartItemsContext from "./contexts/CartItemsContext";
